@@ -35,8 +35,8 @@ public class Naves {
         return ubiLet;
     }
 
-    public int getAtaque(){
-        return vida -1;
+    public void setAtaque(){
+        this.vida = vida -1;
     }
 
     

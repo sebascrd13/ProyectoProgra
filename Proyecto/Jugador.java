@@ -8,13 +8,12 @@ public class Jugador {
     private Naves teniente1;
     private Naves teniente2;
     private Naves teniente3;
-    private tablero tablero;
-
     
+
 
     public Jugador(String nombre, Naves almirante, Naves capi1,
             Naves capi2, Naves teniente1, Naves teniente2,
-            Naves teniente3, tablero tablero) {
+            Naves teniente3) {
         this.nombre = nombre;
         this.almirante = almirante;
         this.capi1 = capi1;
@@ -22,7 +21,7 @@ public class Jugador {
         this.teniente1 = teniente1;
         this.teniente2 = teniente2;
         this.teniente3 = teniente3;
-        this.tablero = tablero;
+    
     }
 
     public String getNombre(){
@@ -81,15 +80,6 @@ public class Jugador {
         this.teniente3 = teniente3;
     }
 
-    public void setTablero(tablero tablero) {
-        this.tablero = tablero;
-    }
-    
-    public tablero getTablero() {
-        return tablero;
-    }
-
-    
-    
  
 }
+
