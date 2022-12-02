@@ -18,22 +18,31 @@ public class Main {
         Jugador usuario = new Jugador(nomUser, null, null,
          null, null, null, null); 
         
-        Juego battleship = new Juego(usuario, CPU, null, null);
+        Juego battleship = new Juego(usuario, CPU, null, null, null);
 
         
         Naves almirante = new Naves(4,0,0);
         Naves capi1 = new Naves(3,0,0);
         Naves capi2 = new Naves(3,0,0);       //Se crean los barcos
-        Naves teniente1 = new Naves(1,0,0);
+        Naves teniente1 = new Naves(1,0,0);   //del CPU
         Naves teniente2 = new Naves(1,0,0);
         Naves teniente3 = new Naves(1,0,0);
 
-        usuario.setAlmirante(almirante);
-        usuario.setCapi1(capi1);
-        usuario.setCapi2(capi2);         //Se le asignan las naves al usuario
-        usuario.setTeniente1(teniente1);
-        usuario.setTeniente2(teniente2);
-        usuario.setTeniente3(teniente3);
+        Naves Almirante = new Naves(4,0,0);
+        Naves Capi1 = new Naves(3,0,0);
+        Naves Capi2 = new Naves(3,0,0);       //Se crean los barcos
+        Naves Teniente1 = new Naves(1,0,0);   //del Usuario
+        Naves Teniente2 = new Naves(1,0,0);
+        Naves Teniente3 = new Naves(1,0,0);
+
+        
+
+        usuario.setAlmirante(Almirante);
+        usuario.setCapi1(Capi1);
+        usuario.setCapi2(Capi2);         //Se le asignan las naves al usuario
+        usuario.setTeniente1(Teniente1);
+        usuario.setTeniente2(Teniente2);
+        usuario.setTeniente3(Teniente3);
 
         CPU.setAlmirante(almirante);
         CPU.setCapi1(capi1);
@@ -52,15 +61,6 @@ public class Main {
         
         battleship.impTabUser();
         
-
-        
-
-     
-        
-        
-        
-
-
         JOptionPane.showMessageDialog(null,"UBICACIONES"+"\n"+
         "Almirante: "+usuario.getAlmirante().getUbiNum()+" "+usuario.getAlmirante().getUbiLet()+"\n"
         +"Capitán 1: "+usuario.getCapi1().getUbiNum()+" "+usuario.getCapi1().getUbiLet()+"\n"
@@ -88,7 +88,7 @@ public class Main {
             }
 
             if (op == 2) {
-                                 
+                battleship.impTabCPU();                                 
             }
 
             if (op == 3) {

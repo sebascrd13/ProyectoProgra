@@ -8,14 +8,16 @@ public class Juego {
     private Jugador usuario;
     private Jugador CPU;
     private String tabCPU[][];
+    private String tabCPUtrampa[][];
     private String tabUsuario[][];
     
     
 
-    public Juego(Jugador usuario, Jugador CPU, tablero tabCPU, tablero tabUsuario){
+    public Juego(Jugador usuario, Jugador CPU, tablero tabCPU, tablero tabCPUtrampa, tablero tabUsuario){
         this.usuario = usuario;
         this.CPU = CPU;
         this.tabCPU = new String[6][6];
+        this.tabCPUtrampa = new String[6][6];
         this.tabUsuario = new String[6][6];
     }
     
@@ -25,6 +27,14 @@ public class Juego {
 
     public void setTabCPU(String [][]tabCPU) {
         this.tabCPU = tabCPU;
+    }
+
+    public String[][] getTabCPUtrampa() {
+        return tabCPUtrampa;
+    }
+
+    public void setTabCPUtrampa(String[][] tabCPUtrampa) {
+        this.tabCPUtrampa = tabCPUtrampa;
     }
 
     public String[][] getTabUsuario() {
@@ -81,6 +91,7 @@ public class Juego {
         
         String naves [] = {"Almirante","Capitán 1","Capitán 2",
         "Teniente 1","Teniente 2","Teniente 3"};
+        
 
         int ubicacionesN [] = new int[6];
         int ubicacionesL [] = new int[6];
@@ -158,12 +169,18 @@ public class Juego {
         tabUsuario[ubicacionesN[4]][ubicacionesL[4]] = "1";
         tabUsuario[ubicacionesN[5]][ubicacionesL[5]] = "1";
 
-        tabCPU[2][4] = "4";
-        tabCPU[5][1] = "3";       //Se le asigna un valor a la posición
-        tabCPU[4][0] = "3";       //de cada nave del CPU
-        tabCPU[0][3] = "1";
-        tabCPU[1][2] = "1";
-        tabCPU[3][5] = "1";
+        for (int i = 0; i < tabCPUtrampa.length; i++) {
+            for (int j = 0; j < tabCPUtrampa.length; j++) {
+                tabCPUtrampa[i][j] = " ";
+            }            
+        }
+
+        tabCPUtrampa[2][4] = "4";
+        tabCPUtrampa[5][1] = "3";       //Se le asigna un valor a la posición
+        tabCPUtrampa[4][0] = "3";       //de cada nave del CPU
+        tabCPUtrampa[0][3] = "1";
+        tabCPUtrampa[1][2] = "1";
+        tabCPUtrampa[3][5] = "1";
         
         
     }
@@ -189,31 +206,149 @@ public class Juego {
         "Capitán 2: " + usuario.getCapi2().getVida() + "\n" +
         "Teniente 1: " + usuario.getTeniente1().getVida() + "\n" +
         "Teniente 2: " + usuario.getTeniente2().getVida() + "\n" +
-        "Teniente 3: " + usuario.getTeniente3().getVida());
+        "Teniente 3: " + usuario.getTeniente3().getVida());     
         
+    }
 
-   
-        
+    public void impTabCPU() {
+        System.out.println("\n");
+        System.out.println("  ===========================");
+        System.out.println("           "+CPU.getNombre()+"        ");
+        System.out.println("  ===========================");
+        System.out.println("     A   B   C   D   E   F");
+        System.out.println("   _________________________");
+        for (int i = 0; i < tabCPU.length; i++) {
+            System.out.print(i+": | ");
+            for (int j = 0; j < tabCPU.length; j++) {
+                System.out.print(tabCPU[i][j] + " | ");
+            }
+            System.out.println();
+            System.out.println("   |---|---|---|---|---|---|");
+        }
+        System.out.println("Naves:" + "\n" + 
+        "Almirante: " + CPU.getAlmirante().getVida() + "\n" +
+        "Capitán 1: " + CPU.getCapi1().getVida() + "\n" +
+        "Capitán 2: " + CPU.getCapi2().getVida() + "\n" +
+        "Teniente 1: " + CPU.getTeniente1().getVida() + "\n" +
+        "Teniente 2: " + CPU.getTeniente2().getVida() + "\n" +
+        "Teniente 3: " + CPU.getTeniente3().getVida());
     }
 
 
     public void atacarCPU(){
-        byte atacaN = Byte.parseByte(JOptionPane.showInputDialog(
+        boolean turnoUsuario = true;
+        while (turnoUsuario) {
+            byte atacaN = Byte.parseByte(JOptionPane.showInputDialog(
             "Fila de Ataque: "));
-        byte atacaL = Byte.parseByte(JOptionPane.showInputDialog(
+            byte atacaL = Byte.parseByte(JOptionPane.showInputDialog(
             "Columna de Ataque: " + "\n" + "A=0  B=1  C=2  D=3  E=4  F=5"));
-        
-        for (int i = 0; i < tabCPU.length; i++) {
-            for (int j = 0; j < tabCPU.length; j++) {
-                if (tabCPU[atacaN][atacaL] == "4") {
-                    tabCPU[atacaN][atacaL] = "3";  
-                    CPU.getAlmirante().setAtaque();;                                     
-                }
-                                  
-            }            
-        }
 
-        
+            if (atacaN == 2 && atacaL == 4) {
+                if (tabCPU[atacaN][atacaL] != "*") {
+                    tabCPU[atacaN][atacaL] = "O";
+                    tabCPUtrampa[atacaN][atacaL] = "O";
+                    CPU.getAlmirante().setAtaque();            //Ataque al almirante
+                    if (CPU.getAlmirante().getVida() == 0) {   //del CPU
+                        tabCPU[2][4] = "*"; 
+                        tabCPUtrampa[2][4] = "*";                                   
+                    }
+                    impTabCPU();               
+                }                
+            }
+
+            if (atacaN == 5 && atacaL == 1) {
+                if (tabCPU[5][1] != "*") {
+                    tabCPU[5][1] = "O";
+                    tabCPUtrampa[5][1] = "O";
+                    CPU.getCapi1().setAtaque();                //Ataque al Capitán1
+                    if (CPU.getCapi1().getVida() == 0) {       //del CPU
+                        tabCPU[5][1] = "*";
+                        tabCPUtrampa[5][1] = "*";
+                    }
+                    impTabCPU();
+                }                                
+            }
+
+            if (atacaN == 4 && atacaL == 0) {
+                if (tabCPU[4][0] != "*") {
+                    tabCPU[4][0] = "O";
+                    tabCPUtrampa[4][0] = "O";
+                    CPU.getCapi2().setAtaque();                //Ataque al Capitán2 
+                    if (CPU.getCapi2().getVida() == 0) {       //del CPU
+                        tabCPU[4][0] = "*";
+                        tabCPUtrampa[4][0] = "*";
+                    }
+                    impTabCPU();
+                }                                
+            }
+
+            if (atacaN == 0 && atacaL == 3) {
+                if (tabCPU[0][3] != "*") {
+                    tabCPU[0][3] = "O";
+                    tabCPUtrampa[0][3] = "O";
+                    CPU.getTeniente1().setAtaque();            //Ataque al Teniente1
+                    if (CPU.getTeniente1().getVida() == 0) {   //del CPU
+                        tabCPU[0][3] = "*";
+                        tabCPUtrampa[0][3] = "*";
+                    }
+                    impTabCPU();
+                }                                
+            }
+
+            if (atacaN == 1 && atacaL == 2) {
+                if (tabCPU[1][2] != "*") {
+                    tabCPU[1][2] = "O";
+                    tabCPUtrampa[1][2] = "O";
+                    CPU.getTeniente2().setAtaque();            //Ataque al Teniente2
+                    if (CPU.getTeniente2().getVida() == 0) {   //del CPU
+                        tabCPU[1][2] = "*";
+                        tabCPUtrampa[1][2] = "*";
+                    }
+                    impTabCPU();
+                }                                
+            }
+
+            if (atacaN == 3 && atacaL == 5) {
+                if (tabCPU[3][5] != "*") {
+                    tabCPU[3][5] = "O";
+                    tabCPUtrampa[3][5] = "O";
+                    CPU.getTeniente3().setAtaque();            //Ataque al Teniente3
+                    if (CPU.getTeniente3().getVida() == 0) {   //del CPU
+                        tabCPU[3][5] = "*";
+                        tabCPUtrampa[3][5] = "*";
+                    }
+                    impTabCPU();
+                }                                
+            }
+                  
+            if (tabCPU[atacaN][atacaL] == "X") {
+                JOptionPane.showMessageDialog(null,  
+                "Ya atacó esa posición y falló");                
+            }
+            
+            if (tabCPU[atacaN][atacaL] == " ") {
+                tabCPU[atacaN][atacaL] = "X";
+                tabCPUtrampa[atacaN][atacaL] = "X";
+                turnoUsuario = false;
+                JOptionPane.showMessageDialog(null,
+                "No hay barcos en esa posición");
+            }                     
+
+            if (tabCPU[atacaN][atacaL] == "*") {
+                JOptionPane.showMessageDialog(null,
+                "Ya la nave está destruida");                
+            }
+            
+            if (!turnoUsuario) {
+                atacarUsuario();
+            }  
+               
+        }    
+       
+    }
+
+    public void atacarUsuario() {
+
     }
 
     public void trampa(){
@@ -222,10 +357,10 @@ public class Juego {
         System.out.println("  ===========================");
         System.out.println("     A   B   C   D   E   F");
         System.out.println("   _________________________");
-        for (int i = 0; i < tabCPU.length; i++) {
+        for (int i = 0; i < tabCPUtrampa.length; i++) {
             System.out.print(i + ": | ");
-            for (int j = 0; j < tabCPU.length; j++) {
-                System.out.print(tabCPU[i][j] + " | ");
+            for (int j = 0; j < tabCPUtrampa.length; j++) {
+                System.out.print(tabCPUtrampa[i][j] + " | ");
             }
             System.out.println();
             System.out.println("   |---|---|---|---|---|---|");
