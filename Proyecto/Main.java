@@ -50,10 +50,6 @@ public class Main {
         CPU.setTeniente1(teniente1);
         CPU.setTeniente2(teniente2);
         CPU.setTeniente3(teniente3);
-           
-        
-
-        
 
         battleship.impTabBlanco();
 
@@ -65,12 +61,9 @@ public class Main {
         "Almirante: "+usuario.getAlmirante().getUbiNum()+" "+usuario.getAlmirante().getUbiLet()+"\n"
         +"Capitán 1: "+usuario.getCapi1().getUbiNum()+" "+usuario.getCapi1().getUbiLet()+"\n"
         +"Capitán 2: "+usuario.getCapi2().getUbiNum()+" "+usuario.getCapi2().getUbiLet()+"\n"
-        +"Almirante 1: "+usuario.getTeniente1().getUbiNum()+" "+usuario.getTeniente1().getUbiLet()+"\n"
-        +"Almirante 2: "+usuario.getTeniente2().getUbiNum()+" "+usuario.getTeniente2().getUbiLet()+"\n"
-        +"Almirante 3: "+usuario.getTeniente3().getUbiNum()+" "+usuario.getTeniente3().getUbiLet());       
-
-
-
+        +"Teniente 1: "+usuario.getTeniente1().getUbiNum()+" "+usuario.getTeniente1().getUbiLet()+"\n"
+        +"Teniente 2: "+usuario.getTeniente2().getUbiNum()+" "+usuario.getTeniente2().getUbiLet()+"\n"
+        +"Teniente 3: "+usuario.getTeniente3().getUbiNum()+" "+usuario.getTeniente3().getUbiLet());       
 
 
         op = 0;
@@ -105,29 +98,23 @@ public class Main {
                 JOptionPane.showMessageDialog(null,
                 "Usted ha salido del juego");
             }
+            if (usuario.getAlmirante().getVida() == 0 && usuario.getCapi1().getVida() == 0
+            && usuario.getCapi2().getVida() == 0 && usuario.getTeniente1().getVida() == 0
+            && usuario.getTeniente2().getVida() == 0 && usuario.getTeniente3().getVida() == 0) {
+                JOptionPane.showMessageDialog(null,
+                CPU.getNombre() + " ha ganado el juego!!!");
+                op = 5;            
+            }
+
+            if (CPU.getAlmirante().getVida() == 0 && CPU.getCapi1().getVida() == 0
+            && CPU.getCapi2().getVida() == 0 && CPU.getTeniente1().getVida() == 0
+            && CPU.getTeniente2().getVida() == 0 && CPU.getTeniente3().getVida() == 0) {
+                JOptionPane.showMessageDialog(null,
+                usuario.getNombre() + " ha ganado el juego!!!");
+                op = 5;            
+            }
             
-        }   
-        
-        
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
        //Pruebas:         
