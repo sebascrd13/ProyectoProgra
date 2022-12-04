@@ -237,6 +237,7 @@ public class Juego {
 
     public void atacarCPU(){
         boolean turnoUsuario = true;
+        impTabCPU();
         while (turnoUsuario) {
             byte atacaN = Byte.parseByte(JOptionPane.showInputDialog(
             "Fila de Ataque: "));
@@ -375,6 +376,12 @@ public class Juego {
         while (turnoCPU) {
             JOptionPane.showMessageDialog(null,
             "Turno de " + CPU.getNombre());
+            if (tabUsuario[randomN][randomL] == "*") { 
+                JOptionPane.showMessageDialog(null,
+                CPU.getNombre() + " atacó una nave que ya está destruida");
+                impTabUser();         
+                turnoCPU = false;    
+            }
 
             if (randomN == usuario.getAlmirante().getUbiNum() 
             && randomL == usuario.getAlmirante().getUbiLet()) {
@@ -383,12 +390,14 @@ public class Juego {
                     JOptionPane.showMessageDialog(null,
                     "Han golpeado con éxito a su Almirante");
                     usuario.getAlmirante().setAtaque();
+                    impTabUser();
                     if (usuario.getAlmirante().getVida() == 0) {
                         tabUsuario[randomN][randomL] = "*";
                         JOptionPane.showMessageDialog(null,
-                        "Su Almirante ha sido destruido");                                       
+                        "Su Almirante ha sido destruido");  
+                        turnoCPU = false;                                     
                     }
-                    impTabUser(); 
+                     
                     turnoCPU = false;
                 }
             } 
@@ -400,12 +409,13 @@ public class Juego {
                     JOptionPane.showMessageDialog(null,
                     "Han golpeado con éxito a su Capitán 1");
                     usuario.getCapi1().setAtaque();
+                    impTabUser();
                     if (usuario.getCapi1().getVida() == 0) {
                         tabUsuario[randomN][randomL] = "*";
                         JOptionPane.showMessageDialog(null,
                         "Su Capitán 1 ha sido destruido"); 
-                    }   
-                    impTabUser();
+                        turnoCPU = false;
+                    } 
                     turnoCPU = false;                 
                 }                
             }
@@ -416,63 +426,49 @@ public class Juego {
                     tabUsuario[randomN][randomL] = "O";              //del usuario 
                     JOptionPane.showMessageDialog(null,
                     "Han golpeado con éxito a su Capitán 2");
-                    usuario.getCapi2().setAtaque(); 
+                    usuario.getCapi2().setAtaque();
+                    impTabUser(); 
                     if (usuario.getCapi2().getVida() == 0) {
                         tabUsuario[randomN][randomL] = "*"; 
                         JOptionPane.showMessageDialog(null,
-                        "Su Capitán 2 ha sido destruido");                        
-                    } 
-                    impTabUser();
+                        "Su Capitán 2 ha sido destruido");  
+                        turnoCPU = false;                      
+                    }
                     turnoCPU = false;                  
                 }
             }
 
-            if (randomN == usuario.getTeniente1().getVida()
-            && randomL == usuario.getTeniente1().getVida()) {
+            if (randomN == usuario.getTeniente1().getUbiNum()
+            && randomL == usuario.getTeniente1().getUbiLet()) {
                 if (tabUsuario[randomN][randomL] != "*") {           //Ataque al Teniente1 
-                    tabUsuario[randomN][randomL] = "O";              //del usuario
+                    tabUsuario[randomN][randomL] = "*";              //del usuario
                     JOptionPane.showMessageDialog(null,
-                    "Han golpeado con éxito a su Teniente 1");
-                    usuario.getTeniente1().setAtaque();
-                    if (usuario.getTeniente1().getVida() == 0) {
-                        tabUsuario[randomN][randomL] = "*";
-                        JOptionPane.showMessageDialog(null,
-                        "Su Teniente 1 ha sido destruido"); 
-                    }                    
+                    "Han destruido a su Teniente 1");
+                    usuario.getTeniente1().setAtaque();               
                     impTabUser();
                     turnoCPU = false;
                 }
             }
 
-            if (randomN == usuario.getTeniente2().getVida()
-            && randomL == usuario.getTeniente2().getVida()) {
+            if (randomN == usuario.getTeniente2().getUbiNum()
+            && randomL == usuario.getTeniente2().getUbiLet()) {
                 if (tabUsuario[randomN][randomL] != "*") {           //Ataque al Teniente2
-                    tabUsuario[randomN][randomL] = "O";              //del usuario
+                    tabUsuario[randomN][randomL] = "*";              //del usuario
                     JOptionPane.showMessageDialog(null,
-                    "Han golpeado con éxito a su Teniente 2");
-                    usuario.getTeniente2().setAtaque();
-                    if (usuario.getTeniente2().getVida() == 0) {
-                        tabUsuario[randomN][randomL] = "*";
-                        JOptionPane.showMessageDialog(null,
-                        "Su Teniente 2 ha sido destruido"); 
-                    }                    
+                    "Han destruido a su Teniente 2");
+                    usuario.getTeniente2().setAtaque();                   
                     impTabUser();
                     turnoCPU = false;
                 }
             }
 
-            if (randomN == usuario.getTeniente3().getVida()
-            && randomL == usuario.getTeniente3().getVida()) {
+            if (randomN == usuario.getTeniente3().getUbiNum()
+            && randomL == usuario.getTeniente3().getUbiLet()) {
                 if (tabUsuario[randomN][randomL] != "*") {           //Ataque al Teniente3
-                    tabUsuario[randomN][randomL] = "O";              //del usuario
+                    tabUsuario[randomN][randomL] = "*";              //del usuario
                     JOptionPane.showMessageDialog(null,
-                    "Han golpeado con éxito a su Teniente 3");
-                    usuario.getTeniente3().setAtaque();
-                    if (usuario.getTeniente3().getVida() == 0) {
-                        tabUsuario[randomN][randomL] = "*";
-                        JOptionPane.showMessageDialog(null,
-                        "Su Teniente 3 ha sido destruido"); 
-                    }                    
+                    "Han destruido a su Teniente 3");
+                    usuario.getTeniente3().setAtaque();                  
                     impTabUser();
                     turnoCPU = false;
                 }
@@ -493,12 +489,7 @@ public class Juego {
                 turnoCPU = false;
             }                     
 
-            if (tabUsuario[randomN][randomL] == "*") { 
-                JOptionPane.showMessageDialog(null,
-                CPU.getNombre() + " atacó una nave ya destruida");
-                impTabUser();         
-                turnoCPU = false;    
-            }                          
+                                      
         } 
     }
 
