@@ -493,7 +493,7 @@ public class Juego {
                 turnoCPU = false;
             }                     
 
-            if (tabCPU[randomN][randomL] == "*") { 
+            if (tabUsuario[randomN][randomL] == "*") { 
                 JOptionPane.showMessageDialog(null,
                 CPU.getNombre() + " atacó una nave ya destruida");
                 impTabUser();         
