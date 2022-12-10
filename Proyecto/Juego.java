@@ -358,13 +358,16 @@ public class Juego {
                 JOptionPane.showMessageDialog(null,
                 "Ya la nave está destruida");                
             }
+
+            if (CPU.getAlmirante().getVida() == 0 && CPU.getCapi1().getVida() == 0
+            && CPU.getCapi2().getVida() == 0 && CPU.getTeniente1().getVida() == 0
+            && CPU.getTeniente2().getVida() == 0 && CPU.getTeniente3().getVida() == 0) {
+                JOptionPane.showMessageDialog(null,
+                usuario.getNombre() + " ha ganado el juego!!!");
+                usuario.setVictoria(true);          
+            }            
              
-        }
-        if (!turnoUsuario) {
-            atacarUsuario();
-        }  
-            
-       
+        }          
     }
 
     public void atacarUsuario() {
@@ -487,9 +490,15 @@ public class Juego {
                 JOptionPane.showMessageDialog(null,
                 CPU.getNombre() + " ha fallado");
                 turnoCPU = false;
-            }                     
+            } 
 
-                                      
+            if (usuario.getAlmirante().getVida() == 0 && usuario.getCapi1().getVida() == 0
+            && usuario.getCapi2().getVida() == 0 && usuario.getTeniente1().getVida() == 0
+            && usuario.getTeniente2().getVida() == 0 && usuario.getTeniente3().getVida() == 0) {
+                JOptionPane.showMessageDialog(null,
+                CPU.getNombre() + " ha ganado el juego!!!");
+                CPU.setVictoria(true);            
+            }                          
         } 
     }
 

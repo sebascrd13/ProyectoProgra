@@ -8,12 +8,11 @@ public class Jugador {
     private Naves teniente1;
     private Naves teniente2;
     private Naves teniente3;
-    
-
+    private boolean victoria;   
 
     public Jugador(String nombre, Naves almirante, Naves capi1,
             Naves capi2, Naves teniente1, Naves teniente2,
-            Naves teniente3) {
+            Naves teniente3, boolean victoria) {
         this.nombre = nombre;
         this.almirante = almirante;
         this.capi1 = capi1;
@@ -21,6 +20,7 @@ public class Jugador {
         this.teniente1 = teniente1;
         this.teniente2 = teniente2;
         this.teniente3 = teniente3;
+        this.victoria = victoria;
     
     }
 
@@ -79,7 +79,13 @@ public class Jugador {
     public void setTeniente3(Naves teniente3) {
         this.teniente3 = teniente3;
     }
+    
+    public boolean getVictoria() {
+        return victoria;
+    }
 
- 
+    public void setVictoria(boolean victoria) {
+        this.victoria = victoria;
+    } 
 }
 

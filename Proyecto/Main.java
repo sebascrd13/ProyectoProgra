@@ -13,10 +13,10 @@ public class Main {
             "Nombre del CPU: ");
 
         Jugador CPU = new Jugador(nomCPU, null, null, null,
-         null, null, null);
+         null, null, null, false);
 
         Jugador usuario = new Jugador(nomUser, null, null,
-         null, null, null, null); 
+         null, null, null, null, false); 
         
         Juego battleship = new Juego(usuario, CPU, null, null, null);
 
@@ -75,9 +75,10 @@ public class Main {
                 "3. Ver tablero propio" + "\n" +
                 "4. Hacer trampa " + "\n" +
                 "5. Salir"));
-            
+
             if (op == 1) {
                 battleship.atacarCPU();
+                battleship.atacarUsuario();
             }
 
             if (op == 2) {
@@ -98,22 +99,18 @@ public class Main {
                 JOptionPane.showMessageDialog(null,
                 "Usted ha salido del juego");
             }
-            if (usuario.getAlmirante().getVida() == 0 && usuario.getCapi1().getVida() == 0
-            && usuario.getCapi2().getVida() == 0 && usuario.getTeniente1().getVida() == 0
-            && usuario.getTeniente2().getVida() == 0 && usuario.getTeniente3().getVida() == 0) {
+            
+            if (CPU.getVictoria()) {
                 JOptionPane.showMessageDialog(null,
                 CPU.getNombre() + " ha ganado el juego!!!");
                 op = 5;            
             }
 
-            if (CPU.getAlmirante().getVida() == 0 && CPU.getCapi1().getVida() == 0
-            && CPU.getCapi2().getVida() == 0 && CPU.getTeniente1().getVida() == 0
-            && CPU.getTeniente2().getVida() == 0 && CPU.getTeniente3().getVida() == 0) {
+            if (usuario.getVictoria()) {
                 JOptionPane.showMessageDialog(null,
                 usuario.getNombre() + " ha ganado el juego!!!");
-                op = 5;            
+                op = 5;                 
             }
-            
         }
 
 
